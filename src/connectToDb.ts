@@ -4,7 +4,6 @@ import getOrmConfig from "./ormconfig";
 export const connectToDb = async (): Promise<void> => {
   try {
     const dbConfiguration = getOrmConfig();
-    console.log("dbConfiguration", dbConfiguration);
     const connection = await createConnection(dbConfiguration);
     await connection.runMigrations();
   } catch (e) {

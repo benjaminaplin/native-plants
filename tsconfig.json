@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "emitDecoratorMetadata": true,
+    "lib": ["es5", "es6"],
     "esModuleInterop": true,
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./build",
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["ESNext"],
-    "outDir": "dist",
-    "strict": true,
-    "target": "ES5"
-  },
-  "include": ["src/**/*", "index.ts"],
-  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
+    "sourceMap": true
+  }
 }

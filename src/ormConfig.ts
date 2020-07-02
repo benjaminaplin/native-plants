@@ -6,11 +6,13 @@ enum DB_TYPE {
 
 function getOrmConfig(): PostgresConnectionOptions {
   const dbConfig = {
+    name: 'default',
     type: DB_TYPE.postgres,
-    host: "plant-finder-database-1.czg3s2hdax2l.us-west-2.rds.amazonaws.com",
+    host: "localhost",
     port: 5432,
     username: "postgres",
     password: "%Fdsa5pos",
+    database: "postgres",
     logging: true,
     cli: {
       entitiesDir: "src/entities",
