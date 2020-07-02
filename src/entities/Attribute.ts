@@ -13,8 +13,8 @@ export default class Attribute {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
-  attribute_name!: string;
+  @Column({unique: true})
+  name!: string;
 
   @ManyToMany(
     (type) => Plant,

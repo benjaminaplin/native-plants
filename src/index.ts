@@ -12,7 +12,9 @@ const initApp = async () => {
     
     await connectToDb()
     app.use(express.static('public'));
-    routes(app)
+    routes.forEach(route => {
+        route(app)
+    })
     app.get('/', (req, res) =>
         res.send(`Node and express server is running on port ${PORT}`)
     );

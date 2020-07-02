@@ -3,30 +3,43 @@ import Plant from '../entities/Plant';
 import { getRepository } from "typeorm";
 
 
-export const addNewPlant = async (req: express.Request, res: express.Response) => {
-    const plantRepository = getRepository(Plant); // you can also get it via getConnection().getRepository() or getManager().getRepository()
+export const addPlant = async (req: express.Request, res: express.Response) => {
+    const plantRepository = getRepository(Plant); 
+    const { body } = req;
     try {
-
-        console.log('*cant crate plants')
-        res.json('plants');
+      const plant = await plantRepository.query(
+        `INSERT INTO plant (botanical_name, friendly_name, light_requirements, growing_seasonality, plant_type, plant_placement_order)
+VALUES ('${body.botanical_name}', '${body.friendly_name}', '${body.light_requirements}', '${body.growing_seasonality}','${body.plant_type}','${body.plant_placement_order}');;`
+      );
+        console.log('req', req.body)
+        res.json(plant);
     } catch (error) {   
         res.send(error);
     }
 };
 
 export const getPlants = async (req: express.Request, res: express.Response) => {
-    const plantRepository = getRepository(Plant); // you can also get it via getConnection().getRepository() or getManager().getRepository()
+    const plantRepository = getRepository(Plant); 
     try {
    
-    const plants = await plantRepository.query(`
-        SELECT p.botanical_name, a.attribute_name, "attributeId"
-        FROM plant p
-        INNER JOIN plant_attributes_attribute paa
-        ON p.id = "plantId"
-        INNER JOIN "attribute" a
-        ON a.id = "attributeId";
-    `);
+    const plants = await plantRepository.query(
+      `SELECT * FROM plant;`
+    );
 
+      console.log("*******plants", plants);
+      res.json(plants);
+    } catch (error) {
+      res.send(error);
+    }
+};
+
+export const getPlantsWithAttributes = async (req: express.Request, res: express.Response) => {
+    const plantRepository = getRepository(Plant); 
+    try {
+   
+    const plants = await plantRepository.query(
+      `SELECT * FROM plants_with_attributes;`
+    );
       console.log("*******plants", plants);
       res.json(plants);
     } catch (error) {

@@ -1,20 +1,31 @@
 import express from 'express'
-import { 
-    // addNewPlant, 
-    getPlants, 
-    // getPlantWithID, 
-    // updatePlant,
-    // deletePlant 
-} from '../controllers/plantController';
+import {
+  addPlant,
+  getPlants,
+  getPlantsWithAttributes,
+} from "../controllers/plantController";
 
 const PlantRoutes = (app: express.Application) => {
     app.route('/plants')
     .get((req, res, next) => {
-        // middleware
-        console.log(`Request from: ${req.originalUrl}`)
-        console.log(`Request type: ${req.method}`)
+        console.log(`GET Request from: ${req.originalUrl}`)
+        console.log(`GET Request type: ${req.method}`)
         next();
     }, getPlants)
+    
+    app.route('/plants')
+    .post((req, res, next) => {
+        console.log(`POST Request from: ${req.originalUrl}`)
+        console.log(`POST Request type: ${req.method}`)
+        next();
+    }, addPlant)
+
+    app.route('/plants-with-attributes')
+    .get((req, res, next) => {
+        console.log(`POST Request from: ${req.originalUrl}`)
+        console.log(`POST Request type: ${req.method}`)
+        next();
+    }, getPlantsWithAttributes)
     
     // POST endpoint
     // .post(addNewPlant);

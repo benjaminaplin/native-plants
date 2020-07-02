@@ -1,23 +1,33 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinTable, ManyToMany } from "typeorm";
 import Attribute from './Attribute'
-import PreferredEnvironment from './PreferredEnvironment'
+import SiteCondition from './SiteCondition'
 
 enum LightRequirements {
-  Low,
-  Medium,
-  High
+  FullSun ="full_sun",
+  FullSunToPartShade ="full_sun_to_part_shade",
+  PartShade = "part_shade",
+  PartShadeToFullShade ="part_shade_to_full_shade",
+  FullShade = "full_shade"
 }
 enum PlantTypes {
-  Shrub,
-  Tree,
-  GroundCover,
-  Vine
+  Shrub= "shrub",
+  Tree= "tree",
+  GroundCover= "groundCover",
+  Vin= "vine"
 }
 enum GrowingSeasonality {
-  Perennial,
-  Annual,
-  Biennial
+  Perennial = "perennial",
+  Annual = "annual",
+  Biennial = "biennial",
+  Deciduous = "deciduous",
+  Evergreen = "evergreen"
+}
+
+enum PlantPlacementOrder {
+  Primary = "primary",
+  Secondary = "secondary",
+  Tertiary = "tertiary",
 }
 
 @Entity()
@@ -25,20 +35,23 @@ export default class Plant {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
+  @Column({ unique: true })
   botanical_name!: string;
 
   @Column()
   friendly_name!: string;
 
-  @Column()
-  light_requirements!: LightRequirements;
+  @Column({ type: "enum", enum: LightRequirements })
+  light_requirements!: string;
 
-  @Column()
-  growing_seasonality!: GrowingSeasonality;
+  @Column({ type: "enum", enum: GrowingSeasonality })
+  growing_seasonality!: string;
 
-  @Column()
-  plant_type!: PlantTypes;
+  @Column({ type: "enum", enum: PlantTypes })
+  plant_type!: string;
+
+  @Column({ type: "enum", enum: PlantPlacementOrder })
+  plant_placement_order!: string;
 
   @ManyToMany(
     (type) => Attribute,
@@ -49,10 +62,10 @@ export default class Plant {
   attributes!: Attribute[];
 
   @ManyToMany(
-    (type) => PreferredEnvironment,
-    (preferredEnvironment) => preferredEnvironment.plants,
+    (type) => SiteCondition,
+    (siteCondition) => siteCondition.plants,
     { nullable: true, onDelete: "CASCADE", onUpdate: "CASCADE" }
   )
   @JoinTable()
-  preferredEnvironments!: PreferredEnvironment[];
+  siteConditions!: SiteCondition[];
 }

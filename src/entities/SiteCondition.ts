@@ -9,16 +9,16 @@ import {
 import Plant from "./Plant";
 
 @Entity()
-export default class PreferredEnvironment {
+export default class SiteCondition {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
-  environment!: string;
+  @Column({ unique: true })
+  name!: string;
 
   @ManyToMany(
     (type) => Plant,
-    (plant) => plant.preferredEnvironments,
+    (plant) => plant.siteConditions,
     { nullable: false, onDelete: "CASCADE", onUpdate: "CASCADE" }
   )
   plants!: Plant[];

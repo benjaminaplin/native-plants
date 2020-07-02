@@ -1,3 +1,4 @@
 import plantRoutes from './plantRoutes'
+import attributeRoutes from './attributeRoutes'
 
-export default plantRoutes;
+export default [plantRoutes, attributeRoutes];
