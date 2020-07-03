@@ -3,7 +3,7 @@ import bodyParser from 'body-parser';
 import { connectToDb } from './connectToDb';
 import routes from './routes'
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 const initApp = async () => {
     // bodyparser setup
